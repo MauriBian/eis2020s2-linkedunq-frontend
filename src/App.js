@@ -1,14 +1,17 @@
 import React from 'react';
 import './App.css';
-import Home from './components/Home'
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import SignUp from './views/SignUp'
 
 
 function App() {
   return (
-    <Router>
-      <Route exact path="/" component={Home} />
-    </Router>
+    <div class="container">
+        <Router>
+          <Route exact path="/" component={SignUp} />
+      </Router>
+    </div>
+
   );
 }
 
