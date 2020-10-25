@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import {Form, Container, Row, Card} from "react-bootstrap";
+import '../style/SignUp.css'
+import {Form, InputGroup, Container, Row, Card} from "react-bootstrap";
 import Col from "react-bootstrap/Col"
 import Button from "react-bootstrap/Button"
 
@@ -13,34 +14,47 @@ export default class Login extends React.Component{
 
     render(){
         return (
-            <div>
-                <Card>
-               <Form style={{width: '60vh', margin: 'auto'}}>
+            <div class="signup-container">
+            <Card>
+                <div class="title">
+                    <Card.Title>Linked UNQ</Card.Title>
+                    <Card.Subtitle>Formulario de registro</Card.Subtitle>
+                </div>
+               <Form class="signup-form">
                     <Row>
-                        <Form.Label>Nombre</Form.Label>
                         <Col>
-                            <Form.Control placeholder="Nombre" />
+                            <Form.Control placeholder="Nombre" required />
                         </Col>
                         <Col>
-                            <Form.Control placeholder="Apellido" />
+                            <Form.Control placeholder="Apellido" required />
                         </Col>
                     </Row>
                     <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control type="email" placeholder="Ingresá tu Email email" />
+                    <InputGroup>
+                    <InputGroup.Prepend>
+                        <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
+                    </InputGroup.Prepend>
+                        <Form.Control type="email" placeholder="Ingresá tu Email email" required />
+                        </InputGroup>
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Contraseña</Form.Label>
-                        <Form.Control type="password" placeholder="Password" />
+                        <Form.Control type="password" placeholder="Contraseña" required />
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Contraseña</Form.Label>
-                        <Form.Control type="password" placeholder="Password" />
+                        <Form.Control type="password" placeholder="Reingresá tu contraseña" required />
                     </Form.Group>
-                    <div class="mt-3">
-                        <Button class="mt-5" variant="primary" type="submit">
+                    <Form.Group>
+            <Form.Check
+              required
+              name="terms"
+              label="Acepto los términos y condiciones"
+              id="validationFormik106"
+            />
+          </Form.Group>
+                    <div class="form-button">
+                        <Button type="submit" block>
                             Registrarme
                         </Button>
                     </div>
