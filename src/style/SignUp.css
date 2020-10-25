@@ -47,3 +47,13 @@ form {
     background-color: #DC3545 !important;
     border-color: #DC3545 !important;
 }
+
+.error-log.active {
+    text-align: left;
+    color: #DC3545;
+    font-size: 0.8rem;
+}
+
+.inactive {
+    display: none;
+}
