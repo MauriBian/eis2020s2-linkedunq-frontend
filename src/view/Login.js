@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { form } from "bootstrap";
 import {Row,Col,InputGroup,Form,Button,Card,FormControl} from 'react-bootstrap';
-import './Home.css'
+import './login.css'
 
 
 export default class Login extends Component{
