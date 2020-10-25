@@ -13,6 +13,14 @@
   }
 }
 
+.container {
+  height: 100vh;
+}
+
+#root {
+  background-image: linear-gradient(#FB1D1F, #8539B0);
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

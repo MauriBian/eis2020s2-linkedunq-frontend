@@ -22,7 +22,7 @@ this.setState({password:'password'})
     render(){
     return(
     <div className="login">
-        <Card  className="card">
+        <Card className="login-card">
                  <Card.Title className="title">Linked UNQ</Card.Title>
                 <Form variant="secondary" className="form">
                     <Form.Group controlId="formBasicEmail">
@@ -30,7 +30,7 @@ this.setState({password:'password'})
                             <InputGroup.Prepend >
                                 <InputGroup.Text>@</InputGroup.Text>
                             </InputGroup.Prepend>
-                            <FormControl className="input"   placeholder="Username" / >
+                            <FormControl className="input" placeholder="Username" / >
                          </InputGroup>
                      </Form.Group>
                 <Form.Group controlId="formBasicPassword" style={{marginTop:"30px"}}>

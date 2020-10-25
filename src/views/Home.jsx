@@ -10,9 +10,8 @@ export default class Home extends React.Component{
 
     render(){
         return (
-            <div className="Home">
-                <h1>Hola LinkedUNQ</h1>
-
+            <div>
+                <h1>Bienvenido {localStorage.getItem('actualUser')}</h1>
                 <button className="btn btn-dark">Click</button>
             </div>
           );

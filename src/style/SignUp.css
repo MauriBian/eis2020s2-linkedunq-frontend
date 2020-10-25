@@ -1,0 +1,59 @@
+.signup-container {
+    margin: auto;
+    height: 100%;
+    text-align: center;
+    display: flex;
+}
+
+.register-card {
+    margin: auto;
+    width: 40%;
+}
+
+.title {
+    margin-top: 3.8rem;
+    margin-bottom: 3.8rem;
+}
+
+.h5 {
+    font-weight: 600 !important;
+}
+
+.h6 {
+    font-weight: 400 !important;
+    color: rgb(92, 90, 90)
+}
+
+form {
+    align-self: center;
+    width: 80%;
+}
+
+.form-group {
+    margin-top: 30px;
+}
+
+.form-check {
+    text-align: left;
+    color: rgb(92, 90, 90);
+}
+
+.form-button {
+    margin-top: 70px;
+    margin-bottom: 50px;
+}
+
+.btn-primary {
+    background-color: #DC3545 !important;
+    border-color: #DC3545 !important;
+}
+
+.error-log.active {
+    text-align: left;
+    color: #DC3545;
+    font-size: 0.8rem;
+}
+
+.inactive {
+    display: none;
+}
