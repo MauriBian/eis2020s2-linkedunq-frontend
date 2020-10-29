@@ -3,6 +3,8 @@ import '../style/SignUp.css'
 import {Form, InputGroup, Row, Card} from "react-bootstrap";
 import Col from "react-bootstrap/Col"
 import Button from "react-bootstrap/Button"
+import axios from "axios"
+import  { Redirect } from 'react-router-dom'
 
 export default class Login extends React.Component{
 
@@ -36,9 +38,19 @@ export default class Login extends React.Component{
     handleSubmit (e) {
         e.preventDefault()
 
-        if (this.state.password === this.state.repassword){
-            this.sendDataToApi()
-        }
+
+const header={  'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+                 }
+
+    axios.post('http://localhost:8080/register',
+                {username:this.state.name.replace(/ /g, ""),
+                password:this.state.password.replace(/ /g, ""),
+                firstName:this.state.name.replace(/ /g, ""),
+                lastName:this.state.lastname.replace(/ /g, ""),
+                email:this.state.email.replace(/ /g, ""),
+                },header)
+        .then(response =>alert("usuario creado con exito")).catch(error=>{alert("Usuario incorrecto")});
     }
 
     handleChange (e) {
