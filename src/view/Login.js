@@ -22,13 +22,22 @@ else{
 this.setState({password:'password'})
 }
 }
+
+
+
+
+
   handleChange(event) {
+console.log(this.state.username);
+console.log(this.state.password);
 
       this.setState({[event.target.name] : event.target.value});
     };
 
 register(){
     this.props.history.push("/signup")
+
+
 }
 iniciarSesion(e) {
 e.preventDefault();
@@ -60,7 +69,7 @@ const header={  'Content-Type': 'application/json',
                             <InputGroup.Prepend >
                                 <InputGroup.Text> 🔒 </InputGroup.Text>
                              </InputGroup.Prepend>
-                             <Form.Control className="input" type={this.state.password} placeholder={this.state.password} onChange={this.handleChange} />
+                             <Form.Control className="input" name="password" type={this.state.password} placeholder={this.state.password} onChange={this.handleChange} />
                              {this.msj}
                         </InputGroup>
                  </Form.Group>
