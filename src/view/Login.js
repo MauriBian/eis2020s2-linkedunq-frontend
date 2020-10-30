@@ -12,7 +12,7 @@ constructor(props){
     this.cambiarDeEstado = this.cambiarDeEstado.bind(this);
     this.iniciarSesion=this.iniciarSesion.bind(this);
     this.handleChange = this.handleChange.bind(this);
-
+    this.register=this.register.bind(this);
 }
  cambiarDeEstado(){
     if(this.state.password=="password"){
@@ -22,12 +22,14 @@ else{
 this.setState({password:'password'})
 }
 }
-
   handleChange(event) {
+
       this.setState({[event.target.name] : event.target.value});
     };
 
-
+register(){
+    this.props.history.push("/signup")
+}
 iniciarSesion(e) {
 e.preventDefault();
 
@@ -56,17 +58,19 @@ const header={  'Content-Type': 'application/json',
                 <Form.Group controlId="formBasicPassword" style={{marginTop:"30px"}}>
                         <InputGroup className="mb-2" >
                             <InputGroup.Prepend >
-                                <InputGroup.Text> 🔒 {this.state.username}</InputGroup.Text>
+                                <InputGroup.Text> 🔒 </InputGroup.Text>
                              </InputGroup.Prepend>
                              <Form.Control className="input" type={this.state.password} placeholder={this.state.password} onChange={this.handleChange} />
+                             {this.msj}
                         </InputGroup>
                  </Form.Group>
                     <Form.Group controlId="formBasicCheckbox">
                         <Form.Text className="text-muted">Nunca revele su contraseña </Form.Text>
                         <Form.Check className="myCheckbox"  label="Mostrar contraseña" onChange={this.cambiarDeEstado} style={{marginTop:"30px"}} />
                     </Form.Group>
-                 <Button variant="danger" onClick={this.iniciarSesion}>Iniciar sesion</Button>
+                 <Button variant="danger" onClick={this.iniciarSesion} style={ {width: "300px"}}>Iniciar sesion</Button>
                  </Form>
+                 <Button variant="danger" onClick={this.register} style={{marginTop:"10px"}}>Registrarme</Button>
 
          </Card>
 </div>
