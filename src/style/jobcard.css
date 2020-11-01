@@ -1,0 +1,12 @@
+.home_card {
+  background-color: #343a40 !important;
+  max-width: 20%;
+}
+
+.home_card_title {
+  color: white;
+}
+
+.home_card_text {
+  color: white;
+}

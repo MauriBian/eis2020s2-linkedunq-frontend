@@ -1,3 +1,4 @@
+
 .App {
   text-align: center;
 }
@@ -13,23 +14,27 @@
   }
 }
 
-.container {
-  height: 100vh;
+
+html {
+  height: 100%;
+  background-color: #8539B0;
+  /* For WebKit (Safari, Chrome, etc) */
+  background: #8539B0 -webkit-gradient(linear, left top, left bottom, from(#FB1D1F), to(#8539B0)) no-repeat;
+  /* Mozilla,Firefox/Gecko */
+  background: #8539B0 -moz-linear-gradient(top, #FB1D1F, #8539B0) no-repeat;
+  /* IE 5.5 - 7 */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FB1D1F, endColorstr=#8539B0) no-repeat;
+  /* IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#FB1D1F, endColorstr=#8539B0)" no-repeat;
 }
 
 #root {
-  background-image: linear-gradient(#FB1D1F, #8539B0);
+  height: 100%;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+body {
+  height: 100%;
+  background-color: transparent !important;
 }
 
 .App-link {

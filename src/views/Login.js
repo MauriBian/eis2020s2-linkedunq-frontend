@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { form } from "bootstrap";
 import {Row,Col,InputGroup,Form,Button,Card,FormControl} from 'react-bootstrap';
-import './login.css'
+import '../style/login.css'
 import axios from "axios"
 import  { Redirect } from 'react-router-dom'
 export default class Login extends Component{
@@ -28,9 +28,6 @@ this.setState({password:'password'})
 
 
   handleChange(event) {
-console.log(this.state.username);
-console.log(this.state.password);
-
       this.setState({[event.target.name] : event.target.value});
     };
 
@@ -48,7 +45,10 @@ const header={  'Content-Type': 'application/json',
 
     axios.post('http://localhost:8080/login',
                 {username:this.state.username.replace(/ /g, ""),password:this.state.password.replace(/ /g, "")},header)
-        .then(response =>this.props.history.push('/home')).catch(error=>{alert("Usuario incorrecto")});
+        .then(response =>{
+          localStorage.setItem('username', this.state.username)
+          this.props.history.push('/home')
+        }).catch(error=>{alert("Usuario incorrecto")});
 }
     render(){
     return(
@@ -77,9 +77,10 @@ const header={  'Content-Type': 'application/json',
                         <Form.Text className="text-muted">Nunca revele su contraseña </Form.Text>
                         <Form.Check className="myCheckbox"  label="Mostrar contraseña" onChange={this.cambiarDeEstado} style={{marginTop:"30px"}} />
                     </Form.Group>
-                 <Button variant="danger" onClick={this.iniciarSesion} style={ {width: "300px"}}>Iniciar sesion</Button>
+                 <Button variant="danger" onClick={this.iniciarSesion} style={ {marginTop:"10px",width: "300px"}}>Iniciar sesion</Button>
+                 <Button variant="danger" onClick={this.register} style={{marginTop:"10px",width:"300px"}}>Registrarme</Button>
                  </Form>
-                 <Button variant="danger" onClick={this.register} style={{marginTop:"10px"}}>Registrarme</Button>
+                 
 
          </Card>
 </div>

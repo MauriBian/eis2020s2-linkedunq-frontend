@@ -1,0 +1,41 @@
+
+.input:focus{
+  border-color: red !important;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.065), 0 0 8px rgba(150, 0, 0, 0.6)!important;
+}
+.myCheckbox{
+  border-color: red !important;
+  outline:none !important
+}
+.myCheckbox input:checked{
+  border-color: red !important;
+  color:red !important;
+  background-color: red !important;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.065), 0 0 8px rgba(150, 0, 0, 0.6)!important;
+  outline:none !important
+}
+
+
+.login{
+  margin: auto;
+  height: 100%;
+  text-align: center;
+  display: flex;
+}
+
+ .login-card{
+
+  margin: auto;
+  width: 25%;
+  padding: 30px
+
+ }
+ .title{
+    text-align:center
+
+ }
+
+.form{
+  flex-direction: column;
+  width: 100%; height:100%;margin-Top:10px
+}
