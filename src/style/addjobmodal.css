@@ -1,0 +1,39 @@
+.addjob-modal {
+  background-color: #343a40 !important;
+  display:flex;
+  flex-direction: column;
+}
+
+.addjob-modal-title {
+  color: white
+}
+
+.modal-form-title {
+  color:white;
+  justify-content: center;
+}
+
+.modal-footer{
+  justify-content: center !important;
+}
+
+.addjob-modal-header{
+  background-color: #445260;
+  text-align: center !important;
+  display: inline !important;
+
+}
+
+.modal-close-button{
+  background-color:  #445260 !important;
+  border-color:  #445260 !important;
+  min-width: 12%;
+}
+
+.modal-form{
+  min-width: 100%;
+}
+
+.modal-content {
+  max-width: 80%;
+}

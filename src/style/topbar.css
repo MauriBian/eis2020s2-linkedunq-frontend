@@ -2,6 +2,11 @@
   padding-left: 15px;
 }
 
+.topBar {
+  display: flex;
+  justify-content: space-between !important;
+}
+
 #navbar-button{
   color: black;
 }

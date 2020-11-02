@@ -1,18 +1,34 @@
-import { CardDeck } from "react-bootstrap";
+import { CardDeck, Button } from "react-bootstrap";
 import React, { Component } from "react";
 import JobCard from '../components/JobCard.jsx'
 import TopBar from '../components/TopBar.jsx'
 import '../style/home.css'
 import axios from "axios"
-import { parseJSON } from "jquery";
+import AddJobModal from '../components/AddJobModal.jsx'
+import { faBars, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 export default class Home extends React.Component{
 
     constructor(props){
         super(props)
+        this.sideBarRef = React.createRef();
         this.state = {
-          jobs: []
+          jobs: [],
+          sidebarOpen: true,
+          modalShow: false
         }
+        
         this.handleJobs = this.handleJobs.bind(this)
+        this.setModalShow = this.setModalShow.bind(this);
+    }
+
+    async setModalShow() {
+      this.setState({
+        modalShow: !this.state.modalShow
+      })
+      const jobs = await axios.get('http://localhost:8080/jobs?username=' + localStorage.getItem('username'))
+      this.handleJobs(jobs.data)
     }
 
     handleJobs (jobs) {
@@ -37,13 +53,18 @@ export default class Home extends React.Component{
     render(){
         return (
             <div className="home_container">
-              <TopBar></TopBar>
+              <TopBar openModal={this.setModalShow} sideBar={this.sideBarRef}></TopBar>
+              <Button  onClick={this.setModalShow} className="add-job"> <FontAwesomeIcon icon={faPlus} size="lg"> </FontAwesomeIcon></Button>
+              <AddJobModal
+                show={this.state.modalShow}
+                onHide={() => this.setModalShow}
+              />
               {
                 this.state.jobs.map( (deck,index) => {
                   return <CardDeck key={index}>
                     {
                     deck.map ((elem, index) => {
-                      return <JobCard title={elem.titulo} text={elem.descripcion} footer={elem.fechaInicioTrabajo + ' - ' + elem.fechaFinTrabajo}></JobCard>
+                      return <JobCard key={index} title={elem.titulo} text={elem.descripcion} footer={elem.fechaInicioTrabajo + ' - ' + elem.fechaFinTrabajo}></JobCard>
                     })}
                   </CardDeck>
                 })
