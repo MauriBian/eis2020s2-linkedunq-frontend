@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import '../style/addjobmodal.css'
 import axios from "axios"
 import {Modal, Button, Form, FormGroup, Row, Col} from "react-bootstrap"
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 export default class AddJobModal extends React.Component{
 
     constructor(props){
@@ -14,24 +17,48 @@ export default class AddJobModal extends React.Component{
         }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
+        this.setStartDate = this.setStartDate.bind(this)
+        this.setEndDate = this.setEndDate.bind(this)
     }
 
     handleChange (e) {
       this.setState({ [e.target.name] : e.target.value })
     }
 
+    setStartDate(date) {
+      this.setState ({
+        desde: date
+      })
+    }
+
+    setEndDate(date) {
+      this.setState ({
+        hasta: date
+      })
+    }
+
     handleSubmit () {
       const header={  'Content-Type': 'application/json',
                 'X-Requested-With': 'XMLHttpRequest'
                  }
-
-    axios.post('http://localhost:8080/jobs/create',
+      const parseStartDate = this.state.desde.getFullYear() + '-'  + this.add0ToDate(this.state.desde.getMonth()) + '-' + this.add0ToDate(this.state.desde.getDate())
+      const parseEndDate = this.state.hasta.getFullYear() + '-'  + this.add0ToDate(this.state.hasta.getMonth()) + '-' + this.add0ToDate(this.state.hasta.getDate())
+      axios.post('http://localhost:8080/jobs/create',
                 {username:localStorage.getItem('username').replace(/ /g, ""),
                 titulo:this.state.titulo.replace(/ /g, ""),
                 descripcion:this.state.descripcion.replace(/ /g, ""),
-                fechaInicioTrabajo:this.state.desde.replace(/ /g, ""),
-                fechaFinTrabajo:this.state.hasta.replace(/ /g, ""),
+                fechaInicioTrabajo: parseStartDate.replace(/ /g, ""),
+                fechaFinTrabajo: parseEndDate.replace(/ /g, ""),
                 },header).then(this.props.onHide())
+    }
+
+    add0ToDate (date) {
+      if (parseInt(date) <= 9) {
+        return '0'+ date
+      }
+      else {
+        return date
+      }
     }
 
     render(){
@@ -62,12 +89,12 @@ export default class AddJobModal extends React.Component{
                   <Row>
                         <Col>
                             <Form.Label className="modal-form-title">Fecha de inicio</Form.Label>
-                            <Form.Control name="desde" onChange={this.handleChange} placeholder="Desde" required />
+                            <DatePicker selected={this.state.desde} onChange={date => this.setStartDate(date)} />
                             
                         </Col>
                         <Col>
                             <Form.Label className="modal-form-title">Fecha de finalización</Form.Label>
-                            <Form.Control name="hasta" onChange={this.handleChange} placeholder="Hasta" required />
+                            <DatePicker selected={this.state.hasta} onChange={date => this.setEndDate(date)} />
                         </Col>
                     </Row>
                   </FormGroup>
