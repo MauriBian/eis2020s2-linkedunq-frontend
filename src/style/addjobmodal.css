@@ -34,6 +34,14 @@
   min-width: 100%;
 }
 
+.modal-datepicker{
+  width: 15vw;
+}
+
 .modal-content {
   max-width: 80%;
+}
+
+.modal-checkbox{
+  color:grey;
 }

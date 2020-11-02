@@ -12,13 +12,15 @@ export default class AddJobModal extends React.Component{
         this.state = {
           titulo: '',
           descripcion:'',
-          desde:'',
-          hasta:''
+          desde: new Date(),
+          hasta: new Date(),
+          actualidad: false
         }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.setStartDate = this.setStartDate.bind(this)
         this.setEndDate = this.setEndDate.bind(this)
+        this.setActualDate = this.setActualDate.bind(this)
     }
 
     handleChange (e) {
@@ -37,19 +39,26 @@ export default class AddJobModal extends React.Component{
       })
     }
 
+    setActualDate(){
+      this.setState({
+        actualidad: !this.state.actualidad
+      })
+    }
+
     handleSubmit () {
       const header={  'Content-Type': 'application/json',
                 'X-Requested-With': 'XMLHttpRequest'
                  }
-      const parseStartDate = this.state.desde.getFullYear() + '-'  + this.add0ToDate(this.state.desde.getMonth()) + '-' + this.add0ToDate(this.state.desde.getDate())
-      const parseEndDate = this.state.hasta.getFullYear() + '-'  + this.add0ToDate(this.state.hasta.getMonth()) + '-' + this.add0ToDate(this.state.hasta.getDate())
+      const parseStartDate = this.state.desde !== '' ?  this.state.desde.getFullYear() + '-'  + this.add0ToDate(this.state.desde.getMonth()) + '-' + this.add0ToDate(this.state.desde.getDate()) : null
+      let parseEndDate =  this.state.hasta !== ''  ? this.state.hasta.getFullYear() + '-'  + this.add0ToDate(this.state.hasta.getMonth()) + '-' + this.add0ToDate(this.state.hasta.getDate()) : null
+      parseEndDate = this.state.actualidad ? '9999-12-31' : parseEndDate
       axios.post('http://localhost:8080/jobs/create',
                 {username:localStorage.getItem('username').replace(/ /g, ""),
                 titulo:this.state.titulo.replace(/ /g, ""),
                 descripcion:this.state.descripcion.replace(/ /g, ""),
-                fechaInicioTrabajo: parseStartDate.replace(/ /g, ""),
-                fechaFinTrabajo: parseEndDate.replace(/ /g, ""),
-                },header).then(this.props.onHide())
+                fechaInicioTrabajo: parseStartDate ? parseStartDate.replace(/ /g, "") : parseStartDate,
+                fechaFinTrabajo: parseEndDate ? parseEndDate.replace(/ /g, "") : parseEndDate,
+                },header).then(this.props.onHide()).catch(elem => alert('Las fechas no pueden estar vacias'))
     }
 
     add0ToDate (date) {
@@ -94,7 +103,12 @@ export default class AddJobModal extends React.Component{
                         </Col>
                         <Col>
                             <Form.Label className="modal-form-title">Fecha de finalización</Form.Label>
-                            <DatePicker selected={this.state.hasta} onChange={date => this.setEndDate(date)} />
+                            <DatePicker disabled={this.state.actualidad} className="modal-datepicker" selected={this.state.hasta} onChange={date => this.setEndDate(date)} />
+                            <Form.Check
+                              label="Actualidad"
+                              className="modal-checkbox"
+                              onChange={this.setActualDate}
+                          />
                         </Col>
                     </Row>
                   </FormGroup>

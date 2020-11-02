@@ -64,7 +64,7 @@ export default class Home extends React.Component{
                   return <CardDeck key={index}>
                     {
                     deck.map ((elem, index) => {
-                      return <JobCard key={index} title={elem.titulo} text={elem.descripcion} footer={elem.fechaInicioTrabajo + ' - ' + elem.fechaFinTrabajo}></JobCard>
+                      return <JobCard key={index} title={elem.titulo} text={elem.descripcion} footer={elem.fechaInicioTrabajo + ' - ' + (elem.fechaFinTrabajo === '9999-12-31' ? 'Actualidad' : elem.fechaFinTrabajo) }></JobCard>
                     })}
                   </CardDeck>
                 })
