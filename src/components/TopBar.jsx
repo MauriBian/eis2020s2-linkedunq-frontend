@@ -4,7 +4,6 @@ import React, { Component } from "react";
 import { faBars, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faBars} from "@fortawesome/free-solid-svg-icons"
 import '../style/topbar.css'
 
 import axios from "axios"
@@ -49,11 +48,14 @@ export default class TopBar extends React.Component{
                 <div>
                   <Button variant="dark"><FontAwesomeIcon icon={faBars} size="lg" color="white"/></Button>
                   <Navbar.Brand className="navbar-title">John Doe</Navbar.Brand>
+
                 </div>
+                 <Button className="ml-auto" onClick={this.handleChange}>Generar Link</Button>
+
               </Navbar>
          <div>
                   {this.state.checked ? (
-                                        <Card bg="secondary" style={{ width: '100 px', alingText:"center" }}>
+                                        <Card  bg="dark" size="lg" color="white" style={{color:"white"}}>
                                         <Card.Title>{this.state.link}</Card.Title>
                                         </Card> ) : (
                              <div />
