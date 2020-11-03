@@ -7,14 +7,14 @@ import LinkBar from '../components/LinkBar.tsx'
 import '../style/home.css'
 import axios from "axios"
 import { parseJSON } from "jquery";
-export default class Home extends React.Component{
+export default class Repo extends React.Component{
 
     constructor(props){
-        super(props)
-        this.state = {
-          jobs: []
-        }
-        this.handleJobs = this.handleJobs.bind(this)
+         super(props)
+                this.state = {
+                  jobs: []
+                }
+                this.handleJobs = this.handleJobs.bind(this)
     }
 
     handleJobs (jobs) {
@@ -31,19 +31,19 @@ export default class Home extends React.Component{
       })
     }
 
-    async componentDidMount() {
-      const jobs = await axios.get('http://localhost:8080/jobs?username=' + localStorage.getItem('username'))
-      this.handleJobs(jobs.data)
-    }
+
+     async componentDidMount() {
+
+const jobs = await axios.get('http://localhost:8080/jobs?username=' + this.props.match.params.id.substring(1))
+      this.handleJobs(jobs.data);
+
+        }
+
 
     render(){
         return (
             <div className="home_container">
-              <TopBar>
-
-              </TopBar>
-
-              {
+{
                 this.state.jobs.map( (deck,index) => {
                   return <CardDeck key={index}>
                     {
@@ -53,6 +53,7 @@ export default class Home extends React.Component{
                   </CardDeck>
                 })
               }
+
               </div>
           );
     }
