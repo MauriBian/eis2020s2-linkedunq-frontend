@@ -1,19 +1,27 @@
 import {Navbar,Nav,Form,FormControl,Button,Row,Col,Container,Badge,ListGroup,Card} from "react-bootstrap";
 import React, { Component } from "react";
+
+import { faBars, faPlus } from "@fortawesome/free-solid-svg-icons";
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faBars} from "@fortawesome/free-solid-svg-icons"
 import '../style/topbar.css'
+
 import axios from "axios"
+
 
 export default class TopBar extends React.Component{
     constructor(props){
         super(props)
+
        this.state ={
             checked:false,
             generado:false,
-            link:""
+            link:"",
+            sideBar: this.props.sideBar
         }
       this.handleChange=this.handleChange.bind(this)
+
     }
      handleChange() {
      if(!this.state.generado){
@@ -36,14 +44,14 @@ export default class TopBar extends React.Component{
     render(){
         return (
             <>
-              <Navbar bg="dark" variant="dark">
-                <Button variant="dark"><FontAwesomeIcon icon={faBars} size="lg" color="white"/></Button>
-                <Navbar.Brand className="navbar-title">John Doe</Navbar.Brand>
-                <Button className="ml-auto" onClick={this.handleChange}>Generar Link</Button>
-               </Navbar>
 
-
-                  <div>
+              <Navbar className="topBar" bg="dark" variant="dark">
+                <div>
+                  <Button variant="dark"><FontAwesomeIcon icon={faBars} size="lg" color="white"/></Button>
+                  <Navbar.Brand className="navbar-title">John Doe</Navbar.Brand>
+                </div>
+              </Navbar>
+         <div>
                   {this.state.checked ? (
                                         <Card bg="secondary" style={{ width: '100 px', alingText:"center" }}>
                                         <Card.Title>{this.state.link}</Card.Title>
@@ -51,7 +59,8 @@ export default class TopBar extends React.Component{
                              <div />
                            )}
                     </div>
-           </>
+            </>
+
           );
     }
 }
