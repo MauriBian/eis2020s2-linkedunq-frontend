@@ -1,7 +1,12 @@
-import { CardDeck, Button } from "react-bootstrap";
+
+import { CardDeck,Button } from "react-bootstrap";
+
+
 import React, { Component } from "react";
 import JobCard from '../components/JobCard.jsx'
 import TopBar from '../components/TopBar.jsx'
+import LinkBar from '../components/LinkBar.tsx'
+
 import '../style/home.css'
 import axios from "axios"
 import AddJobModal from '../components/AddJobModal.jsx'
@@ -53,12 +58,14 @@ export default class Home extends React.Component{
     render(){
         return (
             <div className="home_container">
+
               <TopBar openModal={this.setModalShow} sideBar={this.sideBarRef}></TopBar>
               <Button  onClick={this.setModalShow} className="add-job"> <FontAwesomeIcon icon={faPlus} size="lg"> </FontAwesomeIcon></Button>
               <AddJobModal
                 show={this.state.modalShow}
                 onHide={() => this.setModalShow}
               />
+
               {
                 this.state.jobs.map( (deck,index) => {
                   return <CardDeck key={index}>
@@ -69,8 +76,7 @@ export default class Home extends React.Component{
                   </CardDeck>
                 })
               }
-
-            </div>
+              </div>
           );
     }
 }
