@@ -8,18 +8,18 @@ export default class Login extends Component{
 constructor(props){
 
     super(props);
-    this.state={username:"username",password:"password"}
+    this.state={username:"username",password:"password",tipo:"password"}
     this.cambiarDeEstado = this.cambiarDeEstado.bind(this);
     this.iniciarSesion=this.iniciarSesion.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.register=this.register.bind(this);
 }
  cambiarDeEstado(){
-    if(this.state.password=="password"){
-        this.setState({password:''})
+    if(this.state.tipo=="password"){
+        this.setState({tipo:''})
     }
 else{
-this.setState({password:'password'})
+this.setState({tipo:'password'})
 }
 }
 
@@ -69,7 +69,7 @@ const header={  'Content-Type': 'application/json',
                             <InputGroup.Prepend >
                                 <InputGroup.Text> 🔒 </InputGroup.Text>
                              </InputGroup.Prepend>
-                             <Form.Control className="input" name="password" type={this.state.password} placeholder={this.state.password} onChange={this.handleChange} />
+                             <Form.Control className="input" name="password" type={this.state.tipo} placeholder={this.state.password} onChange={this.handleChange} />
                              {this.msj}
                         </InputGroup>
                  </Form.Group>
