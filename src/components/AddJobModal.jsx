@@ -53,11 +53,11 @@ export default class AddJobModal extends React.Component{
       let parseEndDate =  this.state.hasta !== ''  ? this.state.hasta.getFullYear() + '-'  + this.add0ToDate(this.state.hasta.getMonth()) + '-' + this.add0ToDate(this.state.hasta.getDate()) : null
       parseEndDate = this.state.actualidad ? '9999-12-31' : parseEndDate
       axios.post('http://localhost:8080/jobs/create',
-                {username:localStorage.getItem('username').replace(/ /g, ""),
-                titulo:this.state.titulo.replace(/ /g, ""),
-                descripcion:this.state.descripcion.replace(/ /g, ""),
-                fechaInicioTrabajo: parseStartDate ? parseStartDate.replace(/ /g, "") : parseStartDate,
-                fechaFinTrabajo: parseEndDate ? parseEndDate.replace(/ /g, "") : parseEndDate,
+                {username:localStorage.getItem('username'),
+                titulo:this.state.titulo,
+                descripcion:this.state.descripcion,
+                fechaInicioTrabajo: parseStartDate ? parseStartDate: parseStartDate,
+                fechaFinTrabajo: parseEndDate ? parseEndDate : parseEndDate,
                 },header).then(this.props.onHide()).catch(elem => alert('Las fechas no pueden estar vacias'))
     }
 

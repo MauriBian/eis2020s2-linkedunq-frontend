@@ -53,6 +53,7 @@ export default class Home extends React.Component{
     async componentDidMount() {
       const jobs = await axios.get('http://localhost:8080/jobs?username=' + localStorage.getItem('username'))
       this.handleJobs(jobs.data)
+      console.log(jobs.data)
     }
 
     render(){
