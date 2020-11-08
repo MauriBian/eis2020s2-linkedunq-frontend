@@ -82,6 +82,7 @@ export default class Home extends React.Component{
                     {
                     deck.map ((elem, index) => {
                       return(
+
                        <JobCard   clickHandler={this.actualizar} key={index} id={elem.id} title={elem.titulo} text={elem.descripcion} footer={elem.fechaInicioTrabajo + ' - ' + (elem.fechaFinTrabajo === '9999-12-31' ? 'Actualidad' : elem.fechaFinTrabajo) }></JobCard>
                     )})}
                   </CardDeck>
