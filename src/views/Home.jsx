@@ -21,11 +21,13 @@ export default class Home extends React.Component{
         this.state = {
           jobs: [],
           sidebarOpen: true,
-          modalShow: false
+          modalShow: false,
+          alerta:"",
+          claseAlerta:""
         }
-        
         this.handleJobs = this.handleJobs.bind(this)
         this.setModalShow = this.setModalShow.bind(this);
+        this.actualizar=this.actualizar.bind(this)
     }
 
     async setModalShow() {
@@ -50,12 +52,19 @@ export default class Home extends React.Component{
       })
     }
 
+
+
+   async actualizar(){
+              const jobs = await axios.get('http://localhost:8080/jobs?username=' + localStorage.getItem('username'))
+                    this.handleJobs(jobs.data)
+                alert("Trabajo eliminado")
+
+   }
     async componentDidMount() {
       const jobs = await axios.get('http://localhost:8080/jobs?username=' + localStorage.getItem('username'))
       this.handleJobs(jobs.data)
       console.log(jobs.data)
     }
-
     render(){
         return (
             <div className="home_container">
@@ -72,11 +81,13 @@ export default class Home extends React.Component{
                   return <CardDeck key={index}>
                     {
                     deck.map ((elem, index) => {
-                      return <JobCard key={index} title={elem.titulo} text={elem.descripcion} footer={elem.fechaInicioTrabajo + ' - ' + (elem.fechaFinTrabajo === '9999-12-31' ? 'Actualidad' : elem.fechaFinTrabajo) }></JobCard>
-                    })}
+                      return(
+                       <JobCard   clickHandler={this.actualizar} key={index} id={elem.id} title={elem.titulo} text={elem.descripcion} footer={elem.fechaInicioTrabajo + ' - ' + (elem.fechaFinTrabajo === '9999-12-31' ? 'Actualidad' : elem.fechaFinTrabajo) }></JobCard>
+                    )})}
                   </CardDeck>
                 })
               }
+
               </div>
           );
     }
