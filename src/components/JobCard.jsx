@@ -43,7 +43,7 @@ export default class JobCard extends React.Component{
 
     }
     getRandomImage() {
-      return this.state.images[1];
+      return this.state.images[Math.floor(Math.random() * this.state.images.length)];
     }
 
     openEditModal () {
