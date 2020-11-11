@@ -23,11 +23,16 @@ export default class Home extends React.Component{
           sidebarOpen: true,
           modalShow: false,
           alerta:"",
-          claseAlerta:""
+          claseAlerta:"",
+          editData: {}
         }
         this.handleJobs = this.handleJobs.bind(this)
         this.setModalShow = this.setModalShow.bind(this);
         this.actualizar=this.actualizar.bind(this)
+        this.setModalShow = this.setModalShow.bind(this)
+        this.editModalShow = this.editModalShow.bind(this)
+        this.updateJobData = this.updateJobData.bind(this)
+        this.modal = React.createRef()
     }
 
     async setModalShow() {
@@ -38,7 +43,16 @@ export default class Home extends React.Component{
       this.handleJobs(jobs.data)
     }
 
-    handleJobs (jobs) {
+    async editModalShow(data) {
+      this.setState({
+        modalShow: !this.state.modalShow
+      })
+      this.modal.current.setEditData(data, this.updateJobData)
+      // const jobs = await axios.get('http://localhost:8080/jobs?username=' + localStorage.getItem('username'))
+      // this.handleJobs(jobs.data)
+    }
+
+    async handleJobs (jobs) {
       const parsedJobs = []
       jobs.forEach( (elem, index) => {
         if (index % 4 === 0) {
@@ -47,7 +61,7 @@ export default class Home extends React.Component{
           parsedJobs[Math.floor(index/4)].push(elem)
         }
       })
-      this.setState({
+      await this.setState({
         jobs: parsedJobs
       })
     }
@@ -61,9 +75,20 @@ export default class Home extends React.Component{
 
    }
     async componentDidMount() {
+      const jobs = await axios.get('http://localhost:8080/jobs?username=' + localStorage.getItem('username')) // {data: [{titulo: 'One titulo', descripcion: 'one description', fechaInicioTrabajo: new Date(), fechaFinTrabajo: new Date()}]} 
+      this.handleJobs(jobs.data)
+    }
+
+    async updateJobData (job, jobId) {
+      this.setState({
+        modalShow: !this.state.modalShow
+      })
       const jobs = await axios.get('http://localhost:8080/jobs?username=' + localStorage.getItem('username'))
       this.handleJobs(jobs.data)
-      console.log(jobs.data)
+      this.setState({
+        modalShow: false
+      })
+      window.location.reload()
     }
     render(){
         return (
@@ -74,6 +99,7 @@ export default class Home extends React.Component{
               <AddJobModal
                 show={this.state.modalShow}
                 onHide={() => this.setModalShow}
+                ref={this.modal}
               />
 
               {
@@ -81,10 +107,8 @@ export default class Home extends React.Component{
                   return <CardDeck key={index}>
                     {
                     deck.map ((elem, index) => {
-                      return(
-
-                       <JobCard   clickHandler={this.actualizar} key={index} id={elem.id} title={elem.titulo} text={elem.descripcion} footer={elem.fechaInicioTrabajo + ' - ' + (elem.fechaFinTrabajo === '9999-12-31' ? 'Actualidad' : elem.fechaFinTrabajo) }></JobCard>
-                    )})}
+                      return <JobCard key={index} clickHandler={this.actualizar} updatefunction={this.updateJobData} editfunction={() => { this.editModalShow(elem) }} link={elem.enlace} title={elem.titulo} text={elem.descripcion} footer={elem.fechaInicioTrabajo + ' - ' + (elem.fechaFinTrabajo === '9999-12-31' ? 'Actualidad' : elem.fechaFinTrabajo) }></JobCard>
+                    })}
                   </CardDeck>
                 })
               }

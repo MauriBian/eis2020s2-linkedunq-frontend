@@ -1,6 +1,7 @@
 import { CardDeck,Button } from "react-bootstrap";
 import React, { Component } from "react";
 import JobCardView from '../components/JobCardView.jsx'
+import JobCard from '../components/JobCard.jsx'
 import TopBar from '../components/TopBar.jsx'
 import LinkBar from '../components/LinkBar.tsx'
 
@@ -48,7 +49,7 @@ const jobs = await axios.get('http://localhost:8080/jobs?username=' + this.props
                   return <CardDeck key={index}>
                     {
                     deck.map ((elem, index) => {
-                      return <JobCardView title={elem.titulo} text={elem.descripcion} footer={elem.fechaInicioTrabajo + ' - ' + elem.fechaFinTrabajo}></JobCardView>
+                      return <JobCard title={elem.titulo} guest={true} text={elem.descripcion} footer={elem.fechaInicioTrabajo + ' - ' + elem.fechaFinTrabajo}></JobCard>
                     })}
                   </CardDeck>
                 })
