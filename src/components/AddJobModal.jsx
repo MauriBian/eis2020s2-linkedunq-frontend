@@ -13,6 +13,7 @@ export default class AddJobModal extends React.Component{
           titulo: '',
           descripcion:'',
           enlace: '',
+          imagen: '',
           desde: new Date(),
           hasta: new Date(),
           actualidad: false,
@@ -64,6 +65,7 @@ export default class AddJobModal extends React.Component{
                   titulo:this.state.titulo,
                   descripcion:this.state.descripcion,
                   enlace: this.state.enlace,
+                  urlImagen: this.state.imagen,
                   fechaInicioTrabajo: parseStartDate ? parseStartDate: parseStartDate,
                   fechaFinTrabajo: parseEndDate ? parseEndDate : parseEndDate,
                   },header).then(this.props.onHide()).catch(elem => alert('Las fechas no pueden estar vacias'))
@@ -74,6 +76,7 @@ export default class AddJobModal extends React.Component{
           titulo:this.state.titulo,
           descripcion:this.state.descripcion,
           enlace: this.state.enlace,
+          urlImagen: this.state.imagen,
           fechaInicioTrabajo: parseStartDate ? parseStartDate: parseStartDate,
           fechaFinTrabajo: parseEndDate ? parseEndDate : parseEndDate
         }
@@ -102,6 +105,7 @@ export default class AddJobModal extends React.Component{
         descripcion: data.descripcion,
         desde: new Date (data.fechaInicioTrabajo),
         enlace: data.enlace,
+        imagen: data.imagen,
         hasta: data.fechaFinTrabajo == '9999-12-31' ? '' : new Date (data.fechaFinTrabajo),
         actualidad: data.fechaFinTrabajo == '9999-12-31',
         editMode: true,
@@ -114,6 +118,7 @@ export default class AddJobModal extends React.Component{
           titulo: '',
           descripcion:'',
           enlace: '',
+          imagen: '',
           desde: new Date(),
           hasta: new Date(),
           actualidad: false,
