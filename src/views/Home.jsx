@@ -138,7 +138,7 @@ export default class Home extends React.Component{
               <div className="home_title">
                 {
                   !this.state.editTitle ? <h1 className="home_title_text" onDoubleClick={this.editTitle}>{this.state.title}</h1> :
-                    <Form className="form">
+                    <Form className="formEdit">
                       <Form.Control name="inputTitle" onChange={this.handleChange} value={this.state.inputTitle} className="edit-input" placeholder="Title" />
                       <Button onClick={this.confirmEditTitle} className="edit-button"><FontAwesomeIcon icon={faCheck} size="lg"> </FontAwesomeIcon></Button>
                       <Button onClick={this.cancelEdit} className="edit-button"><FontAwesomeIcon icon={faTimes} size="lg"> </FontAwesomeIcon></Button>
