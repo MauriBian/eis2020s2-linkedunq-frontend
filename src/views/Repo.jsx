@@ -13,7 +13,8 @@ export default class Repo extends React.Component{
     constructor(props){
          super(props)
                 this.state = {
-                  jobs: []
+                  jobs: [],
+                  title: ''
                 }
                 this.handleJobs = this.handleJobs.bind(this)
     }
@@ -38,12 +39,20 @@ export default class Repo extends React.Component{
 const jobs = await axios.get('http://localhost:8080/jobs?username=' + this.props.match.params.id.substring(1))
       this.handleJobs(jobs.data);
 
+      const title = await axios.get('http://localhost:8080/title/' + localStorage.getItem('username')) 
+      this.setState({
+        title: title.data
+      })
+
         }
 
 
     render(){
         return (
             <div className="home_container">
+              <div className="home_title">
+              <h1 className="home_title_text">{this.state.title}</h1>
+              </div>
 {
                 this.state.jobs.map( (deck,index) => {
                   return <CardDeck key={index}>

@@ -12,3 +12,33 @@
   margin-right: 30px;
   background-color: #343a40 !important;
 }
+
+.home_title{
+  margin-top: 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  min-width: 30%;
+  width: 100%;
+}
+
+.home_title_text {
+  text-align: center;
+  font-weight: 700;
+  color: white
+}
+
+.form{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.edit-input {
+  max-width: 25%;
+}
+
+.edit-button{
+  background-color: #343a40 !important;
+  margin-left: 10px;
+}

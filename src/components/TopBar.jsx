@@ -47,7 +47,7 @@ export default class TopBar extends React.Component{
               <Navbar className="topBar" bg="dark" variant="dark">
                 <div>
                   <Button variant="dark"><FontAwesomeIcon icon={faBars} size="lg" color="white"/></Button>
-                  <Navbar.Brand className="navbar-title">John Doe</Navbar.Brand>
+                  <Navbar.Brand className="navbar-title"></Navbar.Brand>
 
                 </div>
                  <Button className="ml-auto" onClick={this.handleChange}>Generar Link</Button>
