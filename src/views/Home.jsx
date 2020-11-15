@@ -1,5 +1,5 @@
 
-import { CardDeck,Button } from "react-bootstrap";
+import { CardDeck,Button,Form,Row,Col } from "react-bootstrap";
 
 
 import React, { Component } from "react";
@@ -10,7 +10,7 @@ import LinkBar from '../components/LinkBar.tsx'
 import '../style/home.css'
 import axios from "axios"
 import AddJobModal from '../components/AddJobModal.jsx'
-import { faBars, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faPlus, faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default class Home extends React.Component{
@@ -24,7 +24,10 @@ export default class Home extends React.Component{
           modalShow: false,
           alerta:"",
           claseAlerta:"",
-          editData: {}
+          editData: {},
+          editTitle: false,
+          inputTitle: '',
+          title:''
         }
         this.handleJobs = this.handleJobs.bind(this)
         this.setModalShow = this.setModalShow.bind(this);
@@ -33,6 +36,38 @@ export default class Home extends React.Component{
         this.editModalShow = this.editModalShow.bind(this)
         this.updateJobData = this.updateJobData.bind(this)
         this.modal = React.createRef()
+        this.editTitle = this.editTitle.bind(this)
+        this.cancelEdit = this.cancelEdit.bind(this)
+        this.confirmEditTitle = this.confirmEditTitle.bind(this)
+        this.handleChange = this.handleChange.bind(this)
+    }
+
+    async confirmEditTitle() {
+      await this.setState({
+        title: this.state.inputTitle
+      })
+      console.log(this.state.title)
+      await axios.put('http://localhost:8080/title', {
+        username: localStorage.getItem('username'),
+        title: this.state.title
+      })
+      this.cancelEdit()
+    }
+
+    handleChange (e) {
+      this.setState({ [e.target.name] : e.target.value })
+    }
+
+    async cancelEdit () {
+      this.setState({
+        editTitle: false
+      })
+    }
+
+    async editTitle() {
+      this.setState({
+        editTitle: !this.state.editTitle
+      })
     }
 
     async setModalShow() {
@@ -76,6 +111,10 @@ export default class Home extends React.Component{
    }
     async componentDidMount() {
       const jobs = await axios.get('http://localhost:8080/jobs?username=' + localStorage.getItem('username')) // {data: [{titulo: 'One titulo', descripcion: 'one description', fechaInicioTrabajo: new Date(), fechaFinTrabajo: new Date()}]} 
+      const title = await axios.get('http://localhost:8080/title/' + localStorage.getItem('username')) 
+      this.setState({
+        title: title.data
+      })
       this.handleJobs(jobs.data)
     }
 
@@ -96,6 +135,16 @@ export default class Home extends React.Component{
 
               <TopBar openModal={this.setModalShow} sideBar={this.sideBarRef}></TopBar>
               <Button  onClick={this.setModalShow} className="add-job"> <FontAwesomeIcon icon={faPlus} size="lg"> </FontAwesomeIcon></Button>
+              <div className="home_title">
+                {
+                  !this.state.editTitle ? <h1 className="home_title_text" onDoubleClick={this.editTitle}>{this.state.title}</h1> :
+                    <Form className="form">
+                      <Form.Control name="inputTitle" onChange={this.handleChange} value={this.state.inputTitle} className="edit-input" placeholder="Title" />
+                      <Button onClick={this.confirmEditTitle} className="edit-button"><FontAwesomeIcon icon={faCheck} size="lg"> </FontAwesomeIcon></Button>
+                      <Button onClick={this.cancelEdit} className="edit-button"><FontAwesomeIcon icon={faTimes} size="lg"> </FontAwesomeIcon></Button>
+                    </Form>
+                }
+              </div>
               <AddJobModal
                 show={this.state.modalShow}
                 onHide={() => this.setModalShow}
