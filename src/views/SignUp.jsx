@@ -108,6 +108,9 @@ const header={  'Content-Type': 'application/json',
               id="validationFormik106"
             />
           </Form.Group>
+                    <Form.Group controlId="formBasicCheckbox">
+                                  <Form.Check className="myCheckbox"  label="Soy recruiter" onChange={this.cambiarDeEstado} style={{marginTop:"30px"}} />
+                              </Form.Group>
                     <div className="form-button">
                         <Button type="submit" block>
                             Registrarme
