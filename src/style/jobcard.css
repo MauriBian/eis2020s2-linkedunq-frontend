@@ -39,3 +39,7 @@
   display: flex;
   justify-content: end;
 }
+
+.card-img-top {
+  max-height: 300px;
+}

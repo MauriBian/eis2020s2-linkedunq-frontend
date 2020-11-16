@@ -58,7 +58,7 @@ const jobs = await axios.get('http://localhost:8080/jobs?username=' + this.props
                   return <CardDeck key={index}>
                     {
                     deck.map ((elem, index) => {
-                      return <JobCard title={elem.titulo} guest={true} text={elem.descripcion} footer={elem.fechaInicioTrabajo + ' - ' + elem.fechaFinTrabajo}></JobCard>
+                      return <JobCard title={elem.titulo} guest={true} text={elem.descripcion} image={elem.urlImagen} footer={elem.fechaInicioTrabajo + ' - ' + elem.fechaFinTrabajo}></JobCard>
                     })}
                   </CardDeck>
                 })
