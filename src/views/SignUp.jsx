@@ -51,6 +51,7 @@ const header={  'Content-Type': 'application/json',
                 email:this.state.email.replace(/ /g, ""),
                 },header)
         .then(response =>alert("usuario creado con exito")).catch(error=>{alert("Usuario incorrecto")});
+        this.props.history.push("/")
     }
 
     handleChange (e) {
