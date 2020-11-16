@@ -105,7 +105,7 @@ export default class AddJobModal extends React.Component{
         descripcion: data.descripcion,
         desde: new Date (data.fechaInicioTrabajo),
         enlace: data.enlace,
-        imagen: data.imagen,
+        imagen: data.urlImagen,
         hasta: data.fechaFinTrabajo == '9999-12-31' ? '' : new Date (data.fechaFinTrabajo),
         actualidad: data.fechaFinTrabajo == '9999-12-31',
         editMode: true,
@@ -156,6 +156,10 @@ export default class AddJobModal extends React.Component{
                   <FormGroup>
                     <Form.Label className="modal-form-title" >Enlace de referencia</Form.Label>
                     <Form.Control value={this.state.enlace} name="enlace" onChange={this.handleChange} placeholder="Ingrese una URL" />
+                  </FormGroup>
+                  <FormGroup>
+                    <Form.Label className="modal-form-title" >URL de imagen de referencia</Form.Label>
+                    <Form.Control value={this.state.imagen} name="imagen" onChange={this.handleChange} placeholder="Ingrese una URL" />
                   </FormGroup>
                   <FormGroup>
                   <Row>
