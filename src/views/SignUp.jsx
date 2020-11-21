@@ -16,10 +16,12 @@ export default class Login extends React.Component{
             email: '',
             password: '',
             repassword: '',
+            isrecruiter: false
         }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.sendDataToApi = this.sendDataToApi.bind(this)
+        this.handleCheckbox = this.handleCheckbox.bind(this)
     }
 
     sendDataToApi(){
@@ -38,10 +40,10 @@ export default class Login extends React.Component{
     handleSubmit (e) {
         e.preventDefault()
 
-
-const header={  'Content-Type': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest'
-                 }
+        const header={  
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        }
 
     axios.post('http://localhost:8080/register',
                 {username:this.state.name.replace(/ /g, ""),
@@ -49,6 +51,7 @@ const header={  'Content-Type': 'application/json',
                 firstName:this.state.name.replace(/ /g, ""),
                 lastName:this.state.lastname.replace(/ /g, ""),
                 email:this.state.email.replace(/ /g, ""),
+                isrecruiter: this.state.isrecruiter
                 },header)
         .then(response =>alert("usuario creado con exito")).catch(error=>{alert("Usuario incorrecto")});
         this.props.history.push("/")
@@ -62,6 +65,10 @@ const header={  'Content-Type': 'application/json',
             elem.classList.toggle('active', value )
             elem.classList.toggle('inactive', !value)
         }
+    }
+
+    handleCheckbox (c) {
+        this.setState({ [c.target.name] : c.target.checked })
     }
 
     render(){
@@ -109,7 +116,7 @@ const header={  'Content-Type': 'application/json',
             />
           </Form.Group>
                     <Form.Group controlId="formBasicCheckbox">
-                                  <Form.Check className="myCheckbox"  label="Soy recruiter" onChange={this.cambiarDeEstado} style={{marginTop:"30px"}} />
+                                  <Form.Check className="myCheckbox" name="isrecruiter" label="Soy recruiter" onChange={this.handleCheckbox} style={{marginTop:"30px"}} />
                               </Form.Group>
                     <div className="form-button">
                         <Button type="submit" block>
