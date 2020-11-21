@@ -1,0 +1,29 @@
+.userTable {
+  max-width: 90%;
+  justify-self: center;
+}
+
+.home-recruiter_title_text {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: 700;
+  color: white
+}
+
+.home-recruiter__container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.buttonTd{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.url-portfolio {
+  width: 10% !important;
+}
