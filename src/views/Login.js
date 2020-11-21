@@ -47,7 +47,7 @@ const header={  'Content-Type': 'application/json',
                 {username:this.state.username.replace(/ /g, ""),password:this.state.password.replace(/ /g, "")},header)
         .then(response =>{
           localStorage.setItem('username', this.state.username)
-          this.props.history.push('/home')
+          response.data ? this.props.history.push('/homeR') : this.props.history.push('/home')
         }).catch(error=>{alert("Usuario incorrecto")});
 }
     render(){
@@ -77,9 +77,6 @@ const header={  'Content-Type': 'application/json',
                         <Form.Text className="text-muted">Nunca revele su contraseña </Form.Text>
                         <Form.Check className="myCheckbox"  label="Mostrar contraseña" onChange={this.cambiarDeEstado} style={{marginTop:"30px"}} />
                     </Form.Group>
-                              <Form.Group controlId="formBasicCheckbox">
-                                            <Form.Check className="myCheckbox"  label="Soy recruiter"  style={{marginTop:"30px"}} />
-                                        </Form.Group>
                  <Button variant="danger" onClick={this.iniciarSesion} style={ {marginTop:"10px",width: "300px"}}>Iniciar sesion</Button>
                  <Button variant="danger" onClick={this.register} style={{marginTop:"10px",width:"300px"}}>Registrarme</Button>
                  </Form>
