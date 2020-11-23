@@ -19,7 +19,8 @@ export default class AddJobModal extends React.Component{
           actualidad: false,
           editMode: false,
           jobId: 0,
-          updateCallback: null
+          updateCallback: null,
+          priority: ''
         }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
@@ -68,6 +69,7 @@ export default class AddJobModal extends React.Component{
                   urlImagen: this.state.imagen,
                   fechaInicioTrabajo: parseStartDate ? parseStartDate: parseStartDate,
                   fechaFinTrabajo: parseEndDate ? parseEndDate : parseEndDate,
+                  prioridad: this.state.priority
                   },header).then(this.props.onHide()).catch(elem => alert('Las fechas no pueden estar vacias'))
       } else {
         const url = `http://localhost:8080/jobs/edit?username=${localStorage.getItem('username')}&id=${this.state.jobId}`
@@ -78,7 +80,8 @@ export default class AddJobModal extends React.Component{
           enlace: this.state.enlace,
           urlImagen: this.state.imagen,
           fechaInicioTrabajo: parseStartDate ? parseStartDate: parseStartDate,
-          fechaFinTrabajo: parseEndDate ? parseEndDate : parseEndDate
+          fechaFinTrabajo: parseEndDate ? parseEndDate : parseEndDate,
+          prioridad: this.state.priority
         }
         axios.post(url, jobBody,header)
         .then((res) => {
@@ -109,7 +112,8 @@ export default class AddJobModal extends React.Component{
         hasta: data.fechaFinTrabajo == '9999-12-31' ? '' : new Date (data.fechaFinTrabajo),
         actualidad: data.fechaFinTrabajo == '9999-12-31',
         editMode: true,
-        updateCallback: callback
+        updateCallback: callback,
+        priority: data.prioridad
       })
     }
 
@@ -122,6 +126,7 @@ export default class AddJobModal extends React.Component{
           desde: new Date(),
           hasta: new Date(),
           actualidad: false,
+          priority: 1,
           editMode: false,
           jobId: 0,
           updateCallback: null
@@ -145,6 +150,14 @@ export default class AddJobModal extends React.Component{
             </Modal.Header>
             <Modal.Body>
               <Form className="modal-form">
+                  <FormGroup className="priority">
+                    <Form.Label className="modal-form-title">Prioridad</Form.Label>
+                    <Form.Control value={this.state.priority} name="priority" onChange={this.handleChange} className="dropdown-priority" as="select">
+                      <option>3</option>
+                      <option selected>2</option>
+                      <option>1</option>
+                    </Form.Control>
+                  </FormGroup>
                   <FormGroup>
                     <Form.Label className="modal-form-title" >Titulo</Form.Label>
                     <Form.Control value={this.state.titulo} name="titulo" onChange={this.handleChange} placeholder="Título del trabajo" />

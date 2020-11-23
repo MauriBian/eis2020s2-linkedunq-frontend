@@ -74,7 +74,9 @@ export default class Home extends React.Component{
       this.setState({
         modalShow: !this.state.modalShow
       })
-      const jobs = await axios.get('http://localhost:8080/jobs?username=' + localStorage.getItem('username'))
+      const sortType = 'priority'
+      console.log('http://localhost:8080/jobs?username=' + localStorage.getItem('username') + "&sortBy=" + sortType)
+      const jobs = await axios.get('http://localhost:8080/jobs?username=' + localStorage.getItem('username') + "&sortBy=" + sortType) //Turn On
       this.handleJobs(jobs.data)
     }
 
@@ -104,18 +106,25 @@ export default class Home extends React.Component{
 
 
    async actualizar(){
-              const jobs = await axios.get('http://localhost:8080/jobs?username=' + localStorage.getItem('username'))
+              const sortType = 'priority'
+              const jobs = await axios.get('http://localhost:8080/jobs?username=' + localStorage.getItem('username') + "&sortBy=" + sortType)
                     this.handleJobs(jobs.data)
                 alert("Trabajo eliminado")
 
    }
     async componentDidMount() {
-      const jobs = await axios.get('http://localhost:8080/jobs?username=' + localStorage.getItem('username')) // {data: [{titulo: 'One titulo', descripcion: 'one description', fechaInicioTrabajo: new Date(), fechaFinTrabajo: new Date()}]} 
-      const title = await axios.get('http://localhost:8080/title/' + localStorage.getItem('username')) 
-      this.setState({
-        title: title.data
-      })
-      this.handleJobs(jobs.data)
+      try { 
+        const sortType = 'priority'
+        console.log('http://localhost:8080/jobs?username=' + localStorage.getItem('username') + "&sortBy=" + sortType)
+        const jobs = await axios.get('http://localhost:8080/jobs?username=' + localStorage.getItem('username') + "&sortBy=" + sortType)   //{data: [{titulo: 'One titulo', descripcion: 'one description',  fechaInicioTrabajo: new Date(), fechaFinTrabajo: new Date()}]}  //Turn On
+        /*const title = await axios.get('http://localhost:8080/title/' + localStorage.getItem('username'))// 'Un titulo' //Turn On
+        this.setState({
+          title: title.data
+        })*/
+        this.handleJobs(jobs.data)
+      } catch (e) {
+        console.log(e)
+      }
     }
 
     async updateJobData (job, jobId) {

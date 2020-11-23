@@ -45,3 +45,18 @@
 .modal-checkbox{
   color:grey;
 }
+
+.priority {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.priority label {
+  align-self: flex-end;
+}
+
+.dropdown-priority{
+  width: 20% !important;
+  align-self: flex-end;
+}
