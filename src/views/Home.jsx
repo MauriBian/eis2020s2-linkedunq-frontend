@@ -27,7 +27,8 @@ export default class Home extends React.Component{
           editData: {},
           editTitle: false,
           inputTitle: '',
-          title:''
+          title:'',
+          orderBy: 'date'
         }
         this.handleJobs = this.handleJobs.bind(this)
         this.setModalShow = this.setModalShow.bind(this);
@@ -40,6 +41,7 @@ export default class Home extends React.Component{
         this.cancelEdit = this.cancelEdit.bind(this)
         this.confirmEditTitle = this.confirmEditTitle.bind(this)
         this.handleChange = this.handleChange.bind(this)
+        this.handleOrdenamiento = this.handleOrdenamiento.bind(this)
     }
 
     async confirmEditTitle() {
@@ -74,7 +76,7 @@ export default class Home extends React.Component{
       this.setState({
         modalShow: !this.state.modalShow
       })
-      const sortType = 'priority'
+      const sortType =  localStorage.getItem('ordenamiento') || 'priority'
       console.log('http://localhost:8080/jobs?username=' + localStorage.getItem('username') + "&sortBy=" + sortType)
       const jobs = await axios.get('http://localhost:8080/jobs?username=' + localStorage.getItem('username') + "&sortBy=" + sortType) //Turn On
       this.handleJobs(jobs.data)
@@ -90,6 +92,7 @@ export default class Home extends React.Component{
     }
 
     async handleJobs (jobs) {
+      console.log('handelo')
       const parsedJobs = []
       jobs.forEach( (elem, index) => {
         if (index % 4 === 0) {
@@ -106,7 +109,7 @@ export default class Home extends React.Component{
 
 
    async actualizar(){
-              const sortType = 'priority'
+              const sortType =  localStorage.getItem('ordenamiento') || 'priority'
               const jobs = await axios.get('http://localhost:8080/jobs?username=' + localStorage.getItem('username') + "&sortBy=" + sortType)
                     this.handleJobs(jobs.data)
                 alert("Trabajo eliminado")
@@ -114,7 +117,7 @@ export default class Home extends React.Component{
    }
     async componentDidMount() {
       try { 
-        const sortType = 'priority'
+        const sortType =  localStorage.getItem('ordenamiento') || 'priority'
         console.log('http://localhost:8080/jobs?username=' + localStorage.getItem('username') + "&sortBy=" + sortType)
         const jobs = await axios.get('http://localhost:8080/jobs?username=' + localStorage.getItem('username') + "&sortBy=" + sortType)   //{data: [{titulo: 'One titulo', descripcion: 'one description',  fechaInicioTrabajo: new Date(), fechaFinTrabajo: new Date()}]}  //Turn On
         /*const title = await axios.get('http://localhost:8080/title/' + localStorage.getItem('username'))// 'Un titulo' //Turn On
@@ -122,6 +125,9 @@ export default class Home extends React.Component{
           title: title.data
         })*/
         this.handleJobs(jobs.data)
+        this.setState({
+          orderBy: sortType == 'priority' ? 'Prioridad' : 'Fecha de creación'
+        })
       } catch (e) {
         console.log(e)
       }
@@ -138,12 +144,32 @@ export default class Home extends React.Component{
       })
       window.location.reload()
     }
+
+    async handleOrdenamiento (e) {
+      await this.setState({
+        orderBy: e.target.value == 'Prioridad' ? 'priority' : 'date'
+      })
+      const sortType = this.state.orderBy
+      localStorage.setItem('ordenamiento', sortType)
+      window.location.reload()
+    }
+
+
     render(){
         return (
             <div className="home_container">
 
               <TopBar openModal={this.setModalShow} sideBar={this.sideBarRef}></TopBar>
-              <Button  onClick={this.setModalShow} className="add-job"> <FontAwesomeIcon icon={faPlus} size="lg"> </FontAwesomeIcon></Button>
+              <div className="first-row">
+                <div style={{width: '50%', display: 'flex', alignItems: 'end'}}>
+                  <Form.Label className="modal-form-title mr-5">Ordenar por:</Form.Label>
+                  <Form.Control value={this.state.orderBy} name="priority" onChange={this.handleOrdenamiento} className="dropdown-priority" as="select">
+                    <option>Prioridad</option>
+                    <option>Fecha de creación</option>
+                  </Form.Control>
+                </div>
+                <Button  onClick={this.setModalShow} className="add-job"> <FontAwesomeIcon icon={faPlus} size="lg"> </FontAwesomeIcon></Button>
+              </div>
               <div className="home_title">
                 {
                   !this.state.editTitle ? <h1 className="home_title_text" onDoubleClick={this.editTitle}>{this.state.title}</h1> :

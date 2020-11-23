@@ -42,3 +42,8 @@
   background-color: #343a40 !important;
   margin-left: 10px;
 }
+
+.first-row {
+  display: flex;
+  justify-content: space-between;
+}
