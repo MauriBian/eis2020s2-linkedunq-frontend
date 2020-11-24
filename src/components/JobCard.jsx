@@ -30,7 +30,6 @@ export default class JobCard extends React.Component{
     }
 
     cambiarColor(event){
-    console.log(event.type)
     if(event.type=="mouseover")
     this.setState({color:"red"})
     if(event.type=="mouseout"){
@@ -40,8 +39,6 @@ export default class JobCard extends React.Component{
     async eliminarTrabajo(){
       await axios.delete('http://localhost:8080/job/' + this.state.id)
       this.props.clickHandler()
-
-
     }
     getRandomImage() {
       return this.state.images[Math.floor(Math.random() * this.state.images.length)];
@@ -63,7 +60,7 @@ export default class JobCard extends React.Component{
                                   <path  onMouseOver={this.cambiarColor} onMouseOut={this.cambiarColor} fillRule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
                                 </svg>
         </Button> : <div></div> }
-              <Card.Img fluid variant="top" src={ this.state.image ? this.state.image : this.getRandomImage()} />
+              <Card.Img variant="top" src={ this.state.image ? this.state.image : this.getRandomImage()} />
               {
                 !this.state.guestMode ? <FontAwesomeIcon onClick={this.openEditModal} className="icon-edit" icon={faPen} size="lg"> </FontAwesomeIcon> : <div></div>
               }

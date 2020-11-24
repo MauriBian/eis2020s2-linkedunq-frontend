@@ -20,7 +20,7 @@ export default class AddJobModal extends React.Component{
           editMode: false,
           jobId: 0,
           updateCallback: null,
-          priority: ''
+          priority: 'Baja'
         }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
@@ -69,7 +69,7 @@ export default class AddJobModal extends React.Component{
                   urlImagen: this.state.imagen,
                   fechaInicioTrabajo: parseStartDate ? parseStartDate: parseStartDate,
                   fechaFinTrabajo: parseEndDate ? parseEndDate : parseEndDate,
-                  prioridad: this.state.priority
+                  prioridad: this.parsePriority(this.state.priority)
                   },header).then(this.props.onHide()).catch(elem => alert('Las fechas no pueden estar vacias'))
       } else {
         const url = `http://localhost:8080/jobs/edit?username=${localStorage.getItem('username')}&id=${this.state.jobId}`
@@ -81,7 +81,7 @@ export default class AddJobModal extends React.Component{
           urlImagen: this.state.imagen,
           fechaInicioTrabajo: parseStartDate ? parseStartDate: parseStartDate,
           fechaFinTrabajo: parseEndDate ? parseEndDate : parseEndDate,
-          prioridad: this.state.priority
+          prioridad: this.parsePriority(this.state.priority)
         }
         axios.post(url, jobBody,header)
         .then((res) => {
@@ -101,6 +101,28 @@ export default class AddJobModal extends React.Component{
       }
     }
 
+    parsePriority (priority) {
+      switch (priority) {
+        case 'Baja':
+          return 3
+        case 'Media':
+          return 2
+        case 'Alta':
+          return 1
+      }
+    }
+
+    reverseParsePriority (priority) {
+      switch (priority) {
+        case 3:
+          return 'Baja'
+        case 2:
+          return 'Media'
+        case 1:
+          return 'Alta'
+      }
+    }
+
     setEditData (data, callback) {
       this.setState({
         jobId: data.id,
@@ -113,7 +135,7 @@ export default class AddJobModal extends React.Component{
         actualidad: data.fechaFinTrabajo == '9999-12-31',
         editMode: true,
         updateCallback: callback,
-        priority: data.prioridad
+        priority: this.reverseParsePriority(data.prioridad)
       })
     }
 
@@ -140,6 +162,7 @@ export default class AddJobModal extends React.Component{
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
+            animation={false}
             ref="modal"
           >
             <div className="addjob-modal">
@@ -153,9 +176,9 @@ export default class AddJobModal extends React.Component{
                   <FormGroup className="priority">
                     <Form.Label className="modal-form-title">Prioridad</Form.Label>
                     <Form.Control value={this.state.priority} name="priority" onChange={this.handleChange} className="dropdown-priority" as="select">
-                      <option>3</option>
-                      <option selected>2</option>
-                      <option>1</option>
+                      <option>Alta</option>
+                      <option>Media</option>
+                      <option>Baja</option>
                     </Form.Control>
                   </FormGroup>
                   <FormGroup>

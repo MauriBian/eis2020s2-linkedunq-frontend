@@ -48,7 +48,6 @@ export default class Home extends React.Component{
       await this.setState({
         title: this.state.inputTitle
       })
-      console.log(this.state.title)
       await axios.put('http://localhost:8080/title', {
         username: localStorage.getItem('username'),
         title: this.state.title
@@ -77,7 +76,6 @@ export default class Home extends React.Component{
         modalShow: !this.state.modalShow
       })
       const sortType =  localStorage.getItem('ordenamiento') || 'priority'
-      console.log('http://localhost:8080/jobs?username=' + localStorage.getItem('username') + "&sortBy=" + sortType)
       const jobs = await axios.get('http://localhost:8080/jobs?username=' + localStorage.getItem('username') + "&sortBy=" + sortType) //Turn On
       this.handleJobs(jobs.data)
     }
@@ -92,7 +90,6 @@ export default class Home extends React.Component{
     }
 
     async handleJobs (jobs) {
-      console.log('handelo')
       const parsedJobs = []
       jobs.forEach( (elem, index) => {
         if (index % 4 === 0) {
@@ -109,16 +106,16 @@ export default class Home extends React.Component{
 
 
    async actualizar(){
-              const sortType =  localStorage.getItem('ordenamiento') || 'priority'
-              const jobs = await axios.get('http://localhost:8080/jobs?username=' + localStorage.getItem('username') + "&sortBy=" + sortType)
-                    this.handleJobs(jobs.data)
-                alert("Trabajo eliminado")
+    const sortType =  localStorage.getItem('ordenamiento') || 'priority'
+    const jobs = await axios.get('http://localhost:8080/jobs?username=' + localStorage.getItem('username') + "&sortBy=" + sortType)
+    console.log(jobs)
+    this.handleJobs(jobs.data)
+    alert("Trabajo eliminado")
 
    }
     async componentDidMount() {
       try { 
         const sortType =  localStorage.getItem('ordenamiento') || 'priority'
-        console.log('http://localhost:8080/jobs?username=' + localStorage.getItem('username') + "&sortBy=" + sortType)
         const jobs = await axios.get('http://localhost:8080/jobs?username=' + localStorage.getItem('username') + "&sortBy=" + sortType)   //{data: [{titulo: 'One titulo', descripcion: 'one description',  fechaInicioTrabajo: new Date(), fechaFinTrabajo: new Date()}]}  //Turn On
         /*const title = await axios.get('http://localhost:8080/title/' + localStorage.getItem('username'))// 'Un titulo' //Turn On
         this.setState({
@@ -129,7 +126,6 @@ export default class Home extends React.Component{
           orderBy: sortType == 'priority' ? 'Prioridad' : 'Fecha de creación'
         })
       } catch (e) {
-        console.log(e)
       }
     }
 
@@ -142,7 +138,6 @@ export default class Home extends React.Component{
       this.setState({
         modalShow: false
       })
-      window.location.reload()
     }
 
     async handleOrdenamiento (e) {
