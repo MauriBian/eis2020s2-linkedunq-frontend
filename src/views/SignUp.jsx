@@ -51,7 +51,7 @@ export default class Login extends React.Component{
                 firstName:this.state.name.replace(/ /g, ""),
                 lastName:this.state.lastname.replace(/ /g, ""),
                 email:this.state.email.replace(/ /g, ""),
-                isRecruiter: this.state.isrecruiter
+                recruiter: this.state.isrecruiter
                 },header)
         .then(response =>alert("usuario creado con exito")).catch(error=>{alert("Usuario incorrecto")});
         this.props.history.push("/")
