@@ -87,6 +87,7 @@ export default class AddJobModal extends React.Component{
         .then((res) => {
           this.state.updateCallback(jobBody, this.state.jobId)
           this.resetState()
+          window.location.reload()
         })
         .catch(elem => alert('Las fechas no pueden estar vacias', elem))
       }

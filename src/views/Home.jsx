@@ -10,7 +10,7 @@ import LinkBar from '../components/LinkBar.tsx'
 import '../style/home.css'
 import axios from "axios"
 import AddJobModal from '../components/AddJobModal.jsx'
-import { faBars, faPlus, faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faPlus, faCheck, faTimes, faWindowRestore } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default class Home extends React.Component{
@@ -85,8 +85,8 @@ export default class Home extends React.Component{
         modalShow: !this.state.modalShow
       })
       this.modal.current.setEditData(data, this.updateJobData)
-      // const jobs = await axios.get('http://localhost:8080/jobs?username=' + localStorage.getItem('username'))
-      // this.handleJobs(jobs.data)
+      const jobs = await axios.get('http://localhost:8080/jobs?username=' + localStorage.getItem('username'))
+      this.handleJobs(jobs.data)
     }
 
     async handleJobs (jobs) {
@@ -117,10 +117,10 @@ export default class Home extends React.Component{
       try { 
         const sortType =  localStorage.getItem('ordenamiento') || 'priority'
         const jobs = await axios.get('http://localhost:8080/jobs?username=' + localStorage.getItem('username') + "&sortBy=" + sortType)   //{data: [{titulo: 'One titulo', descripcion: 'one description',  fechaInicioTrabajo: new Date(), fechaFinTrabajo: new Date()}]}  //Turn On
-        /*const title = await axios.get('http://localhost:8080/title/' + localStorage.getItem('username'))// 'Un titulo' //Turn On
+        const title = await axios.get('http://localhost:8080/title/' + localStorage.getItem('username'))// 'Un titulo' //Turn On
         this.setState({
           title: title.data
-        })*/
+        })
         this.handleJobs(jobs.data)
         this.setState({
           orderBy: sortType == 'priority' ? 'Prioridad' : 'Fecha de creación'
