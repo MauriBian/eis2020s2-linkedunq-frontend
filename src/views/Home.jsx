@@ -156,12 +156,17 @@ export default class Home extends React.Component{
 
               <TopBar openModal={this.setModalShow} sideBar={this.sideBarRef}></TopBar>
               <div className="first-row">
-                <div style={{width: '50%', display: 'flex', alignItems: 'end'}}>
-                  <Form.Label className="modal-form-title mr-5">Ordenar por:</Form.Label>
-                  <Form.Control value={this.state.orderBy} name="priority" onChange={this.handleOrdenamiento} className="dropdown-priority" as="select">
+                <div style={{width: '50%', display: 'flex', alignItems: 'end'}}>                  
+                  {
+                    this.state.jobs.length > 0 &&
+                    <>
+                    <Form.Label className="modal-form-title mr-5">Ordenar por:</Form.Label>
+                    <Form.Control value={this.state.orderBy} name="priority" onChange={this.handleOrdenamiento} className="dropdown-priority" as="select">
                     <option>Prioridad</option>
                     <option>Fecha de creación</option>
-                  </Form.Control>
+                    </Form.Control>
+                    </>
+                  }
                 </div>
                 <Button  onClick={this.setModalShow} className="add-job"> <FontAwesomeIcon icon={faPlus} size="lg"> </FontAwesomeIcon></Button>
               </div>
