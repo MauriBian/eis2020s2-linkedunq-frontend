@@ -57,8 +57,8 @@ export default class AddJobModal extends React.Component{
       const header={  'Content-Type': 'application/json',
                 'X-Requested-With': 'XMLHttpRequest'
                  }
-      const parseStartDate = this.state.desde !== '' ?  this.state.desde.getFullYear() + '-'  + this.add0ToDate(this.state.desde.getMonth()) + '-' + this.add0ToDate(this.state.desde.getDate()) : null
-      let parseEndDate =  this.state.hasta !== ''  ? this.state.hasta.getFullYear() + '-'  + this.add0ToDate(this.state.hasta.getMonth()) + '-' + this.add0ToDate(this.state.hasta.getDate()) : null
+      const parseStartDate = this.state.desde !== '' ?  this.state.desde.getFullYear() + '-'  + this.add0ToDate(this.state.desde.getMonth() + 1) + '-' + this.add0ToDate(this.state.desde.getDate()) : null
+      let parseEndDate =  this.state.hasta !== ''  ? this.state.hasta.getFullYear() + '-'  + this.add0ToDate(this.state.hasta.getMonth() + 1) + '-' + this.add0ToDate(this.state.hasta.getDate()) : null
       parseEndDate = this.state.actualidad ? '9999-12-31' : parseEndDate
       if (!this.state.editMode){
         axios.post('http://localhost:8080/jobs/create',
